@@ -1,5 +1,5 @@
 import mysql.connector
-import settings
+from src import settings
 
 
 def main():

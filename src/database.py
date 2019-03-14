@@ -1,5 +1,5 @@
 import mysql.connector
-from settings import HOST, USER, PASSWORD, DATABASE
+from src.settings import HOST, USER, PASSWORD, DATABASE
 
 
 class Database:

@@ -1,6 +1,6 @@
 import time
-import events
-from settings import bot_id
+from src import events
+from src.settings import bot_id
 from slackclient import SlackClient
 
 
