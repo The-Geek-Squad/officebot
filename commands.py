@@ -1,3 +1,6 @@
+import database
+import random
+
 class Command(object):
     def __init__(self):
         self.commands = {
@@ -5,6 +8,11 @@ class Command(object):
             "quote": self.quote,
             "twss": self.twss
         }
+        self._database = database.Database()
+
+    @property
+    def database(self):
+        return self._database
 
     def handle_command(self, user, command):
         # response = "<@" + user + ">: "
@@ -20,9 +28,11 @@ class Command(object):
     def hi():
         return "Hello"
 
-    @staticmethod
-    def quote():
-        return "Would I rather be feared or loved? Easy. Both. I want people to be afraid of how much they love me."
+    def quote(self):
+        # TODO Handle Random quote better
+        response = self.database.query("SELECT quote FROM quotes ORDER BY RAND()")
+        val = random.randint(0, len(response)-1)
+        return response[val]['quote']
 
     @staticmethod
     def twss():
