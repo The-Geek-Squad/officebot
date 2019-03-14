@@ -1,6 +1,7 @@
 import database
 import random
 
+
 class Command(object):
     def __init__(self):
         self.commands = {
@@ -9,6 +10,7 @@ class Command(object):
             "twss": self.twss
         }
         self._database = database.Database()
+        self.value = 0
 
     @property
     def database(self):
@@ -29,10 +31,16 @@ class Command(object):
         return "Hello"
 
     def quote(self):
-        # TODO Handle Random quote better
-        response = self.database.query("SELECT quote FROM quotes ORDER BY RAND()")
+        response = self.database.query("SELECT quote FROM quotes")
         val = random.randint(0, len(response)-1)
-        return response[val]['quote']
+        if val == self.value:
+            if val == 0:
+                self.value += 1
+            elif val >= len(response) - 1:
+                self.value -= 1
+        else:
+            self.value = val
+        return response[self.value]['quote']
 
     @staticmethod
     def twss():
